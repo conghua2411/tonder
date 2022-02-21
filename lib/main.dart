@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tonder/repo/partner_repo.dart';
 import 'package:tonder/service/services.dart';
+import 'package:tonder/ui/splash.dart';
 import 'ui/home/home_route.dart';
 
 void main() async {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: homeRoute,
+        home: const SplashView(),
       ),
     );
   }
