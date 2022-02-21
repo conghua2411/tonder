@@ -6,5 +6,5 @@ A tinder clone flutter app
 
 This is tinder clone app
 
-Build with MVVM structure base on Android recommend structure () 
+Build with MVVM structure base on Android recommend app structure
 
