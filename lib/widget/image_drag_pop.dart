@@ -12,6 +12,8 @@ class ImageDragPop extends StatefulWidget {
   final Function()? onSwipeTop;
   final Function()? onSwipeBottom;
 
+  final Widget? info;
+
   const ImageDragPop(
     this.imageUrl, {
     Key? key,
@@ -21,6 +23,7 @@ class ImageDragPop extends StatefulWidget {
     this.onSwipeRight,
     this.onSwipeTop,
     this.onSwipeBottom,
+    this.info,
   }) : super(key: key);
 
   @override
@@ -32,7 +35,7 @@ class _ImageDragPopState extends State<ImageDragPop>
   final BehaviorSubject<Offset> _bsOffset = BehaviorSubject();
   final BehaviorSubject<Offset> _bsRotation = BehaviorSubject();
 
-  late Offset _startDragOffset;
+  Offset _startDragOffset = const Offset(0, 0);
 
   late AnimationController _backAnimController;
   Animation<Offset>? _backAnim;
@@ -92,10 +95,20 @@ class _ImageDragPopState extends State<ImageDragPop>
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        widget.imageUrl,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
+                      child: Stack(
+                        children: [
+                          Image.network(
+                            widget.imageUrl,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            child: widget.info ?? Container(),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -130,12 +143,15 @@ class _ImageDragPopState extends State<ImageDragPop>
 
   void _endDrag(DragEndDetails end) {
     if (_checkVelocity(end.velocity.pixelsPerSecond)) {
-      finished = true;
-      _ending(end.velocity.pixelsPerSecond);
-      _setupAnimationEnd(end.velocity.pixelsPerSecond);
-    } else {
-      _goingBack();
+      _endingFunc = _ending(end.velocity.pixelsPerSecond);
+      if (_endingFunc != null) {
+        finished = true;
+        _setupAnimationEnd(end.velocity.pixelsPerSecond);
+        return;
+      }
     }
+
+    _goingBack();
   }
 
   void _goingBack() {
@@ -156,18 +172,20 @@ class _ImageDragPopState extends State<ImageDragPop>
     _bsRotation.add(const Offset(0, 0));
   }
 
-  void _ending(Offset velocity) {
+  Function()? _ending(Offset velocity) {
+    Function()? endingFunc;
+
     if (velocity.dx.abs() > velocity.dy.abs()) {
       /// swipe left swipe right
       ///
       if (velocity.dx > 0) {
         /// swipe right
         ///
-        _endingFunc = widget.onSwipeRight;
+        endingFunc = widget.onSwipeRight;
       } else {
         /// swipe left
         ///
-        _endingFunc = widget.onSwipeLeft;
+        endingFunc = widget.onSwipeLeft;
       }
     } else {
       /// swipe up swipe down
@@ -175,17 +193,19 @@ class _ImageDragPopState extends State<ImageDragPop>
       if (velocity.dy > 0) {
         /// swipe bottom
         ///
-        _endingFunc = widget.onSwipeBottom;
+        endingFunc = widget.onSwipeBottom;
       } else {
         /// swipe top
         ///
-        _endingFunc = widget.onSwipeTop;
+        endingFunc = widget.onSwipeTop;
       }
     }
+
+    return endingFunc;
   }
 
   bool _checkVelocity(Offset velocity) {
-    if (max(velocity.dx, velocity.dy).abs() > 1000) {
+    if (max(velocity.dx.abs(), velocity.dy.abs()) > 1000) {
       return true;
     }
 

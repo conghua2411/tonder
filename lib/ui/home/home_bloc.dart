@@ -33,4 +33,43 @@ class HomeBloc extends BaseBloc {
   void dispose() {
     getBsListPartner().close();
   }
+
+  Future<bool> pass(Partner partner) {
+    List<Partner> list = getBsListPartner().value;
+    list.remove(partner);
+    updateBsListPartner(list);
+
+    return _partnerRepo.addToPass(partner);
+  }
+
+  Future<bool> favorite(Partner partner) {
+    List<Partner> list = getBsListPartner().value;
+    list.remove(partner);
+    updateBsListPartner(list);
+
+    return Future.value(true);
+  }
+
+  Future<bool> like(Partner partner) {
+    List<Partner> list = getBsListPartner().value;
+    list.remove(partner);
+    updateBsListPartner(list);
+
+    return _partnerRepo.addToLike(partner);
+  }
+
+  Future<bool> passTop() {
+    Partner partner = getBsListPartner().value.last;
+    return pass(partner);
+  }
+
+  Future<bool> favoriteTop() {
+    Partner partner = getBsListPartner().value.last;
+    return favorite(partner);
+  }
+
+  Future<bool> likeTop() {
+    Partner partner = getBsListPartner().value.last;
+    return like(partner);
+  }
 }

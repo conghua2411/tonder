@@ -40,11 +40,13 @@ class Partner {
   }
 
   static List<Partner> genListSamplePartner() {
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
+
     Random rand = Random();
     return List.generate(
       10,
       (index) => Partner(
-        id: '$index',
+        id: '${timestamp + index}',
         name: 'Name $index',
         age: rand.nextInt(20) + 20,
         gender: rand.nextInt(3),
@@ -53,4 +55,12 @@ class Partner {
       ),
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Partner && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

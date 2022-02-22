@@ -9,4 +9,7 @@ class Constants {
   static const int online = 0;
   static const int recentlyOnline = 1;
   static const int offline = 2;
+
+  static const String likeTable = 'LikePartner';
+  static const String passTable = 'PassPartner';
 }
