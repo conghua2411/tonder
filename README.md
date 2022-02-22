@@ -13,3 +13,6 @@ using:
 - rxdart (data binding UI)
 - sqlite (cache data)
 
+[demo](https://drive.google.com/file/d/1_SnAl6N-tUXG7XRRcIUVQfKQNc7IAKki/view?usp=sharing)
+
+[apk](https://drive.google.com/file/d/1-2ATvowlSHymFRscLUK3wTSrprTBnTPS/view?usp=sharing)
