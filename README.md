@@ -12,6 +12,8 @@ using:
 - provider (dependency injection)
 - rxdart (data binding UI)
 - sqlite (cache data)
+- firestore (api network)
+- mockito (unit test)
 
 [demo](https://drive.google.com/file/d/1_SnAl6N-tUXG7XRRcIUVQfKQNc7IAKki/view?usp=sharing)
 
