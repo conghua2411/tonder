@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tonder/repo/partner_repo.dart';
 import 'package:tonder/service/services.dart';
-import 'package:tonder/ui/splash.dart';
 import 'ui/home/home_route.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   Cache cache = SqlCache();
 
@@ -14,7 +15,7 @@ void main() async {
 
   /// init component
   ///
-  Network net = ApiSample();
+  Network net = ApiFireStore();
 
   runApp(MyApp(net, cache));
 }
