@@ -3,6 +3,7 @@ import 'package:tonder/base/base.dart';
 import 'package:tonder/model/partner.dart';
 import 'package:tonder/ui/home/home_bloc.dart';
 import 'package:tonder/ui/like_partner/like_partner_route.dart';
+import 'package:tonder/ui/pass_partner/pass_partner_route.dart';
 import 'package:tonder/widget/control_button.dart';
 import 'package:tonder/widget/image_drag_pop.dart';
 
@@ -155,7 +156,9 @@ class _HomeViewState extends BaseStateBloc<HomeView, HomeBloc> {
 
   Widget _listPassBtn() {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        push(passPartnerRoute);
+      },
       child: Row(
         children: const [
           Icon(
