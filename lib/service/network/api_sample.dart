@@ -2,7 +2,7 @@ import 'package:tonder/model/partner.dart';
 
 import 'network.dart';
 
-class ApiSample extends Network {
+class ApiSample implements Network {
   @override
   Future<List<Partner>> getListPartner() {
     return Future.delayed(

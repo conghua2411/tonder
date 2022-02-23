@@ -3,7 +3,7 @@ import 'package:tonder/service/cache/cache.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tonder/util/constants.dart';
 
-class SqlCache extends Cache {
+class SqlCache implements Cache {
   late Database db;
 
   @override

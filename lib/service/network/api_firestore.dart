@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tonder/model/partner.dart';
 import 'package:tonder/service/network/network.dart';
 
-class ApiFireStore extends Network {
+class ApiFireStore implements Network {
   final partnerRef = FirebaseFirestore.instance
       .collection('partners')
       .withConverter<Partner>(
